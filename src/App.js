@@ -9,13 +9,11 @@ import Soleil from './soleilReact'
 function App() {
   return (
     <div className="App">
-      <Header></Header>
       <div className="Body">
         <VideoJonglage></VideoJonglage>
         <JeuCv></JeuCv>
         <Soleil></Soleil>
       </div>
-      <Footer></Footer>
     </div>
   );
 }
