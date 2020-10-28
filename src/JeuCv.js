@@ -108,7 +108,7 @@ class JeuCv extends Component {
       linkedIn.className = 'linkedinT'
       $('#linkedIn').fadeIn(2000)
       window.document.getElementById('linkedIn').style.left = competences.offsetWidth / 2 - 40 + 'px'
-      linkedIn.style.marginTop = 270 + 'px'
+      linkedIn.style.marginTop = 200 + 'px'
       complementaire.className = 'complementaireT'
 
       //________________________________________INITIALISTATION BRICKS_______________________________________
@@ -252,10 +252,10 @@ class JeuCv extends Component {
           play(pongB)
           //angle renvoi balle
           if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 8) {
-            angle = 3
+            angle = 4
           }
           else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 - linkedIn.offsetWidth / 8) {
-            angle = 4
+            angle = 3
           }
           else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 + linkedIn.offsetWidth / 8) {
             angle = 2
