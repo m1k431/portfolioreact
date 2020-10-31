@@ -140,7 +140,7 @@ class JeuCv extends Component {
       var ballDown = false
       var youwin = false
       var angle = 1
-      var idAni, idR, idL
+      var idAni, idL
 
       //__________________________________________WEB_Audio_API___________________________________________________________
       function play(url) {
@@ -203,7 +203,7 @@ class JeuCv extends Component {
         touchobj = e.changedTouches[0] // reference first touch point for this event
         var dist = parseInt(touchobj.pageX) - startx // calculate dist traveled by touch point
         box2.style.left = (boxleft + dist > competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth)
-          ? competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth -5 + 'px'
+          ? competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth - 5 + 'px'
           : (boxleft + dist < competences.offsetLeft)
             ? competences.offsetLeft - 5 + 'px'
             : boxleft + dist - 5 + 'px'
@@ -422,12 +422,7 @@ class JeuCv extends Component {
               var tbodyEl = $('tbody')
               tbodyEl.html('')
               reponse.forEach(function (score) {
-                tbodyEl.append('\
-                            <tr>\
-                            <td>' + score.name + '</td>\
-                            <td>' + score.score + '</td>\
-                            </tr>\
-                            ')
+                tbodyEl.append(`<tr><td>${score.name}</td><td>${score.score}</td></tr>`)
               })
             }
           })
@@ -460,12 +455,7 @@ class JeuCv extends Component {
                 var tbodyEl = $('tbody')
                 tbodyEl.html('')
                 reponse.forEach(function (score) {
-                  tbodyEl.append('\
-                                <tr>\
-                                <td>' + score.name + '</td>\
-                                <td>' + score.score + '</td>\
-                                </tr>\
-                                ')
+                  tbodyEl.append(`<tr><td>${score.name}</td><td>${score.score}</td></tr>`)
                 })
               }
             })

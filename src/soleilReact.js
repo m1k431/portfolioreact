@@ -269,12 +269,12 @@ class soleil extends Component {
     var bool1 = false
     var bool2 = false
     var bool3 = false
-    var idB, idW, idMU, idMD, idS, idM, idBird, idCloud
-    let i = 4
+    var idB, idW, idMU, idMD, idM/*, idBird, idCloud*/
+    //let i = 4
 
     //Fonctions animations sprites/img-----------------------------------------------
     var moveCloud = function () {
-      idCloud = requestAnimationFrame(moveCloud)
+      /*idCloud = */requestAnimationFrame(moveCloud)
       if (delta > interval) {
         //code for
         if (parseFloat(imgCloud.style.left) > -1050) {
@@ -288,7 +288,7 @@ class soleil extends Component {
     }
 
     var animBird = function () {
-      idBird = requestAnimationFrame(animBird)
+      /*idBird = */requestAnimationFrame(animBird)
       if (delta > interval) {
         //code for
         if (bool3 === false) {
@@ -391,7 +391,7 @@ class soleil extends Component {
 
     //INITIALISATION ENVIRONNEMENT----------------------------------------------------
     //snowback control play/pause
-    let snowBack = document.getElementById('snowB')
+    //let snowBack = document.getElementById('snowB')
     //coordonnées soleil
     var c00rdX = 20
     var c00rdY = 2
