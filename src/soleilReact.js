@@ -84,6 +84,7 @@ class soleil extends Component {
     cielNuit.style.borderRadius = '10px'
     cielNuit.style.top = '0px'
     cielNuit.style.left = '0px'
+    cielNuit.style.backgroundColor = 'black'
     m0nsoleil.appendChild(cielNuit)
     //soleil
     var m0nCanva = document.createElement('canvas')
@@ -423,9 +424,7 @@ class soleil extends Component {
           ctxLune.clearRect(0, 0, 40, 40)
           switch (c00rdX) {
             case 30:
-              $('#space').animate({
-                backgroundColor: '#0a15db'
-              }, 3000)
+              $('#space').fadeOut(3000)
               break
             case 40:
               $('#moon').fadeOut(3000)
@@ -462,9 +461,7 @@ class soleil extends Component {
               //snowBack.pause()
               break
             case 105:
-              $('#space').animate({
-                backgroundColor: '#000000'
-              }, 3000)
+              $('#space').fadeIn(3000)
               break
             default:
           }
