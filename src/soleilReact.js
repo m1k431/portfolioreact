@@ -484,10 +484,10 @@ class soleil extends Component {
   }
   render() {
     return (
-      <div>
+      <section id="Soleil">
         <h2>THIS WEBSITE HOSTS MY EXPERIENCES AND SKILLS</h2>
         <div id="s0leil"></div>
-      </div>
+      </section>
     )
   }
 }

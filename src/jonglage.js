@@ -12,7 +12,7 @@ class Jonglage extends Component {
     moiUS = 'MY NAME IS MIKAEL',
     metierUS = 'I AM AN IBM SQL RPGLE NODEJS DEVELOPER'
     return (
-      <section className="me">
+      <section id="VideoJonglage" className="me">
         <h1 className="english">{welcome}</h1>
         <h1 className="french">{bienvenue}</h1>
         <video id="jugglejungle" autoPlay='true' loop='true' poster={VideoPoster} playsInline controls>

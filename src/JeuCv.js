@@ -179,7 +179,7 @@ class JeuCv extends Component {
             var source = context.createBufferSource()
             source.buffer = buffer
             source.connect(context.destination)
-            if (nextTime == 0)
+            if (nextTime === 0)
               nextTime = context.currentTime + 0.01 /// add 50ms latency to work well across systems - tune this if you like
             source.start(nextTime)
             nextTime += source.buffer.duration // Make the next buffer wait the length of the last buffer before being played
@@ -202,13 +202,31 @@ class JeuCv extends Component {
       var eTouchMove = function (e) {
         touchobj = e.changedTouches[0] // reference first touch point for this event
         var dist = parseInt(touchobj.pageX) - startx // calculate dist traveled by touch point
-        box2.style.left = ((boxleft + dist > competences.scrollWidth - linkedIn.scrollWidth) ? competences.scrollWidth - linkedIn.scrollWidth / 2 : (boxleft + dist - linkedIn.scrollWidth / 2 < 0) ? linkedIn.scrollWidth / 2 : boxleft + dist + linkedIn.scrollWidth / 2) + competences.offsetWidth / 40 + 'px'
-        e.preventDefault()
+        box2.style.left = (boxleft + dist > competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth)
+          ? competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth -5 + 'px'
+          : (boxleft + dist < competences.offsetLeft)
+            ? competences.offsetLeft - 5 + 'px'
+            : boxleft + dist - 5 + 'px'
+
       }
 
       window.document.addEventListener('touchstart', eTouchStart, true)
       window.document.addEventListener('touchmove', eTouchMove, true)
       bStart.removeEventListener('click', varsStart, true)
+
+      //__________________________________Déplacement paddle dans environnement de jeu________________________________________________________________________
+      var movepaddle = function (mon0bjetEvent) {
+        if (mon0bjetEvent.clientX - linkedIn.offsetWidth / 2 > competences.offsetLeft && mon0bjetEvent.clientX + linkedIn.offsetWidth / 2 < competences.offsetWidth + competences.offsetLeft) {
+          linkedIn.style.left = mon0bjetEvent.clientX - linkedIn.offsetWidth / 2 - 5 + 'px'
+        }
+        else if (mon0bjetEvent.clientX - linkedIn.offsetWidth / 2 < competences.offsetLeft) {
+          linkedIn.style.left = competences.offsetLeft - 5 + 'px'
+        }
+        else if (mon0bjetEvent.clientX + linkedIn.offsetWidth / 2 > competences.offsetWidth + competences.offsetLeft) {
+          linkedIn.style.left = competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth - 5 + 'px'
+        }
+      }
+      window.document.addEventListener('mousemove', movepaddle, true)
 
       //____________________________________ANIMATION_Ball_Sprite______________________________________
       var animSprite = function () {
@@ -278,18 +296,11 @@ class JeuCv extends Component {
             angle = 2
           }
           else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth * 7 / 8) {
-            angle = 4
-          }
-          else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth) {
             angle = 3
           }
-        }
-
-      }
-      //__________________________________Déplacement paddle dans environnement de jeu________________________________________________________________________
-      var movepaddle = function (mon0bjetEvent) {
-        if (mon0bjetEvent.clientX - linkedIn.offsetWidth / 2 > competences.offsetLeft && mon0bjetEvent.clientX + linkedIn.offsetWidth / 2 < competences.offsetWidth + competences.offsetLeft) {
-          window.document.getElementById('linkedIn').style.left = mon0bjetEvent.clientX - linkedIn.offsetWidth / 2 + 'px'
+          else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth) {
+            angle = 4
+          }
         }
       }
 
@@ -306,7 +317,7 @@ class JeuCv extends Component {
             //right collision
             else if (ballX - mesInfosT[i].offsetLeft - mesInfosT[i].offsetWidth > ballY - mesInfosT[i].offsetTop - mesInfosT[i].offsetHeight && ballX - mesInfosT[i].offsetLeft - mesInfosT[i].offsetWidth > mesInfosT[i].offsetTop - ballY - divSprite.offsetHeight)
               ballLeft = false
-            else if (ballDown == false)
+            else if (ballDown === false)
               ballDown = true
             else
               ballDown = false
@@ -321,11 +332,65 @@ class JeuCv extends Component {
         }
       }
 
+      var deplacerBalle = function () {
+        var ballSpeed = 2
+        divSprite.style.top = ballY + 'px'
+        //ball move left right limit
+        if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
+          ballX = ballX + angle * ballSpeed
+          divSprite.style.left = ballX + 'px'
+        }
+        else if (ballX > competences.offsetLeft) {
+          ballLeft = true
+          ballX = ballX - angle * ballSpeed
+          divSprite.style.left = ballX + 'px'
+
+        }
+        else {
+          ballLeft = false
+          play(pongA)
+        }
+        //ball move up down limit
+        if (ballY >= competences.offsetTop && !ballDown) {
+          ballY = ballY - 2 * ballSpeed
+          divSprite.style.top = ballY + 'px'
+        } else if (ballY < competences.offsetTop + competences.offsetHeight - 30) {
+          ballDown = true
+          ballY = ballY + 2 * ballSpeed
+          divSprite.style.top = ballY + 'px'
+          if (ballY + divSprite.offsetHeight > linkedIn.offsetTop && ballY < linkedIn.offsetTop + 5)
+            paddle()
+        } else {
+          ballDown = false
+          clickMove = true
+          combo = 1
+          //------------Short hand style if---------------
+          score >= 100 ? score -= 100 : score = 0
+          //----------------------------------------------
+          $('#metier > h2').text('SCORE: ' + score).css({
+            'color': 'red',
+            'font-family': 'sans-serif',
+            'font-size': '2em'
+          }).fadeIn(375)
+          combo = 1
+          clearInterval(idL)
+          play(miss)
+        }
+        if (ballX + divSprite.offsetWidth > competences.offsetLeft + competences.offsetWidth) {
+          play(pongA)
+        }
+        if (ballY < competences.offsetTop) {
+          play(pongA)
+        }
+
+      }
+
       //________________________________________________Verif/Gestion_YouWIN______________________________________________________________________________
       var jeuTermine = function () {
         var mesInfosT = window.document.getElementsByClassName('infoT')
         //var competences = window.document.getElementById('competen')
-        if (!mesInfosT.length && fuse == 1) {
+        //YOU WIN
+        if (!mesInfosT.length && fuse === 1) {
           fuse--
           stopEvent = true
           play(youWin)
@@ -347,6 +412,7 @@ class JeuCv extends Component {
           }, 1000)
           $('#commerciales').fadeIn()
           $('#scoreForm').fadeIn()
+          //Requete AJAX SELECT pour affichage tableau score
           $.ajax({
             type: 'GET',
             url: '/highscore',
@@ -408,60 +474,8 @@ class JeuCv extends Component {
       })
 
 
-      var deplacerBalle = function () {
-        var ballSpeed = 2
-        divSprite.style.top = ballY + 'px'
-        //ball move left right limit
-        if (ballX < competences.offsetLeft + competences.offsetWidth - divSprite.offsetWidth && !ballLeft) {
-          ballX = ballX + angle * ballSpeed
-          divSprite.style.left = ballX + 'px'
-        }
-        else if (ballX > competences.offsetLeft) {
-          ballLeft = true
-          ballX = ballX - angle * ballSpeed
-          divSprite.style.left = ballX + 'px'
 
-        }
-        else {
-          ballLeft = false
-          play(pongA)
-        }
-        //ball move up down limit
-        if (ballY >= competences.offsetTop && !ballDown) {
-          ballY = ballY - 2 * ballSpeed
-          divSprite.style.top = ballY + 'px'
-        } else if (ballY < competences.offsetTop + competences.offsetHeight - 30) {
-          ballDown = true
-          ballY = ballY + 2 * ballSpeed
-          divSprite.style.top = ballY + 'px'
-          if (ballY + divSprite.offsetHeight > linkedIn.offsetTop && ballY < linkedIn.offsetTop + 5)
-            paddle()
-        } else {
-          ballDown = false
-          clickMove = true
-          combo = 1
-          //------------Short hand style if---------------
-          score >= 100 ? score -= 100 : score = 0
-          //----------------------------------------------
-          $('#metier > h2').text('SCORE: ' + score).css({
-            'color': 'red',
-            'font-family': 'sans-serif',
-            'font-size': '2em'
-          }).fadeIn(375)
-          combo = 1
-          clearInterval(idL)
-          play(miss)
-        }
-        if (ballX + divSprite.offsetWidth > competences.offsetLeft + competences.offsetWidth) {
-          play(pongA)
-        }
-        if (ballY < competences.offsetTop) {
-          play(pongA)
-        }
-
-      }
-
-      //FPS control
+      //----------------------------FPS control
       var fps = 60,
         now,
         then = Date.now(),
@@ -480,15 +494,14 @@ class JeuCv extends Component {
         delta = now - then
         if (delta > interval) {
           then = now - (delta % interval)
-          //code for drawing the frame    
-          window.document.addEventListener('mousemove', movepaddle, true)
+          //code for drawing the frame
           if (!youwin || !clickMove) {
             deplacerBalle()
             brickBroken()
             $('#metier > h2').text('SCORE: ' + score).fadeIn()
             jeuTermine()
 
-            if (clickMove == false && fuse == 1) {
+            if (clickMove === false && fuse === 1) {
               $('#metier > h2').text('SCORE: ' + score).css({
                 'color': 'black',
                 'font-family': 'sans-serif',
@@ -521,7 +534,7 @@ class JeuCv extends Component {
   render() {
     const metier = 'IBM NODEJS DEVELOPER'
     return (
-      <section id="CV">
+      <section id="JeuCv">
         <div id="metier" onClick={this.varsStart}>
           <h2>{metier}</h2>
         </div>

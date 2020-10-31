@@ -8,8 +8,20 @@ body {
 }
 
 .Body {
-  max-width: 640px;
+  max-width: 600px;
   margin: auto;
+}
+
+#VideoJonglage {
+  margin: 20px;
+}
+
+#JeuCv {
+  margin: 20px;
+}
+
+#Soleil {
+  margin: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */
