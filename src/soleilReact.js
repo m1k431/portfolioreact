@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
-import './css/soleil.css'
+//import './css/soleil.css'
 
 class soleil extends Component {
   monIntro = function () {
