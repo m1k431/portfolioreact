@@ -108,7 +108,7 @@ class JeuCv extends Component {
       linkedIn.className = 'linkedinT'
       $('#linkedIn').fadeIn(2000)
       window.document.getElementById('linkedIn').style.left = competences.offsetWidth / 2 - 40 + 'px'
-      linkedIn.style.marginTop = 200 + 'px'
+      linkedIn.style.marginTop = competences.offsetTop/2.2 + 'px'
       complementaire.className = 'complementaireT'
 
       //________________________________________INITIALISTATION BRICKS_______________________________________
