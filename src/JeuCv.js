@@ -67,7 +67,7 @@ class JeuCv extends Component {
       var clickMove = false
       $('#scoreForm').hide()
       $('#highScore').hide()
-      $('#complementaire').hide()
+      //$('#complementaire').hide()
 
       //____________________INITIALISATION ENVIRONNEMENT________________________________________________________________
       var competences = window.document.getElementById('competen')
