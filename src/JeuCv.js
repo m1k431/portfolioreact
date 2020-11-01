@@ -210,6 +210,12 @@ class JeuCv extends Component {
           : (boxleft + dist < competences.offsetLeft)
             ? competences.offsetLeft - 5 + 'px'
             : boxleft + dist - 5 + 'px'
+        if (clickMove === true) {
+          ballX = linkedIn.offsetLeft + linkedIn.offsetWidth / 2 - divSprite.offsetWidth / 2
+          ballY = linkedIn.offsetTop - divSprite.offsetHeight
+          divSprite.style.left = ballX + 'px'
+          divSprite.style.top = ballY + 'px'
+        }
 
       }
 
@@ -229,7 +235,7 @@ class JeuCv extends Component {
           linkedIn.style.left = competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth - 5 + 'px'
         }
         if (clickMove === true) {
-          ballX = linkedIn.offsetLeft + linkedIn.offsetWidth / 2  - divSprite.offsetWidth / 2
+          ballX = linkedIn.offsetLeft + linkedIn.offsetWidth / 2 - divSprite.offsetWidth / 2
           ballY = linkedIn.offsetTop - divSprite.offsetHeight
           divSprite.style.left = ballX + 'px'
           divSprite.style.top = ballY + 'px'
@@ -502,7 +508,7 @@ class JeuCv extends Component {
       var stopEvent = false
       idL = setInterval(animSprite, 60)
       clearInterval(idL)
-      
+
       clickMove = true
 
       //_____________________MAIN()_____Déplacement_balle_dans_Environnement__________________________
