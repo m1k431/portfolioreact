@@ -108,7 +108,7 @@ class JeuCv extends Component {
       linkedIn.className = 'linkedinT'
       $('#linkedIn').fadeIn(2000)
       window.document.getElementById('linkedIn').style.left = competences.offsetWidth / 2 - 40 + 'px'
-      linkedIn.style.marginTop = competences.offsetTop/2.2 + 'px'
+      linkedIn.style.top = competences.offsetTop + competences.offsetHeight - 60 + 'px'
       complementaire.className = 'complementaireT'
 
       //________________________________________INITIALISTATION BRICKS_______________________________________
@@ -308,19 +308,36 @@ class JeuCv extends Component {
       var brickBroken = function () {
         var mesInfosT = window.document.getElementsByClassName('infoT')
         var i = mesInfosT.length - 1
+        let gauche, droite, haut, bas, mini
         while (i >= 0) {
           //inside brick
-          if (ballX + divSprite.offsetWidth > mesInfosT[i].offsetLeft && ballX < mesInfosT[i].offsetLeft + mesInfosT[i].offsetWidth && ballY + divSprite.offsetHeight > mesInfosT[i].offsetTop && ballY < mesInfosT[i].offsetTop + mesInfosT[i].offsetHeight) {
-            //left collision
-            if (mesInfosT[i].offsetLeft - ballX - divSprite.offsetWidth > ballY - mesInfosT[i].offsetTop - mesInfosT[i].offsetHeight && mesInfosT[i].offsetLeft - ballX - divSprite.offsetWidth > mesInfosT[i].offsetTop - ballY - divSprite.offsetHeight)
-              ballLeft = true
-            //right collision
-            else if (ballX - mesInfosT[i].offsetLeft - mesInfosT[i].offsetWidth > ballY - mesInfosT[i].offsetTop - mesInfosT[i].offsetHeight && ballX - mesInfosT[i].offsetLeft - mesInfosT[i].offsetWidth > mesInfosT[i].offsetTop - ballY - divSprite.offsetHeight)
-              ballLeft = false
-            else if (ballDown === false)
-              ballDown = true
-            else
-              ballDown = false
+          if (ballX + divSprite.offsetWidth > mesInfosT[i].offsetLeft           //left
+            && ballX < mesInfosT[i].offsetLeft + mesInfosT[i].offsetWidth       //right
+            && ballY + divSprite.offsetHeight > mesInfosT[i].offsetTop          //haut
+            && ballY < mesInfosT[i].offsetTop + mesInfosT[i].offsetHeight) {    //bas
+
+            gauche = Math.abs(ballX + divSprite.offsetWidth - mesInfosT[i].offsetLeft)
+            droite = Math.abs(ballX - mesInfosT[i].offsetLeft - mesInfosT[i].offsetWidth)
+            haut = Math.abs(ballY + divSprite.offsetHeight - mesInfosT[i].offsetTop)
+            bas = Math.abs(ballY - mesInfosT[i].offsetTop - mesInfosT[i].offsetHeight)
+            mini = Math.min(gauche, droite, haut, bas)
+
+            switch (mini) {
+              case gauche:
+                ballLeft = true
+                break
+              case droite:
+                ballLeft = false
+                break
+              case haut:
+                ballDown = false
+                break
+              case bas:
+                ballDown = true
+                break
+              default:
+            }
+
             play(pongC)
             $(mesInfosT[i]).animate({
               backgroundColor: 'rgba(255, 255, 255, 0.4)'
@@ -763,11 +780,11 @@ class JeuCv extends Component {
           <div className="jobs">
             <h3 className="french">Technicien etudes en Design et Decoration</h3>
             <div className="infojob french">
-              Alphabet Stand Service (MIPCOM/MIPTV, MIDEM, FIF, MIPIM &mldr;)
+              Alphabet Stand Service (MIPCOM/MIPTV, MIDEM, FIF, MIPIM...)
           </div>
             <h3 className="english">Design and Decoration Technician</h3>
             <div className="infojob english">
-              Alphabet Stand Service (MIPCOM/MIPTV, MIDEM, FIF, MIPIM &mldr;)
+              Alphabet Stand Service (MIPCOM/MIPTV, MIDEM, FIF, MIPIM...)
           </div>
             <h3 className="spanish">Técnico de Diseño y Decoración</h3>
             <div className="infojob spanish">

@@ -3,13 +3,12 @@ import './css/app.css';
 //import Header from './header';
 import VideoJonglage from './jonglage';
 import JeuCv from './JeuCv'
-import Soleil from './soleilReact'
+import Soleil from './soleil'
 import Particles from 'react-particles-js'
 
 function App() {
   return (
     <div className="App">
-      <div className="Body">
         <Particles id='Particles' params={{
           fpsLimit: 60,
           backgroundMode: {
@@ -36,7 +35,6 @@ function App() {
         <VideoJonglage></VideoJonglage>
         <JeuCv></JeuCv>
         <Soleil></Soleil>
-      </div>
     </div>
   );
 }
