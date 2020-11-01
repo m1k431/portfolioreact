@@ -99,6 +99,7 @@ class JeuCv extends Component {
       imgSoccer.style.position = 'absolute'
       imgSoccer.style.height = '100px'
       imgSoccer.style.left = '-13px'
+      imgSoccer.style.top = -18 + 'px'
       imgSoccer.style.top = '-px'
       imgSoccer.src = '/img/soccerBall.png'
       imgSoccer.style.backgroundColor = 'none'
@@ -134,8 +135,10 @@ class JeuCv extends Component {
       }, 1000)
 
       //_________________________________________INITIALISATIION_JEU______________________________________
-      var ballX = linkedIn.offsetLeft + linkedIn.offsetWidth / 2
-      var ballY = linkedIn.offsetTop
+      var ballX = linkedIn.offsetLeft + linkedIn.offsetWidth / 2 - divSprite.offsetWidth / 2
+      var ballY = linkedIn.offsetTop - divSprite.offsetHeight
+      divSprite.style.left = ballX + 'px'
+      divSprite.style.top = ballY + 'px'
       var ballLeft = true
       var ballDown = false
       var youwin = false
@@ -225,12 +228,17 @@ class JeuCv extends Component {
         else if (mon0bjetEvent.clientX + linkedIn.offsetWidth / 2 > competences.offsetWidth + competences.offsetLeft) {
           linkedIn.style.left = competences.offsetLeft + competences.offsetWidth - linkedIn.offsetWidth - 5 + 'px'
         }
+        if (clickMove === true) {
+          ballX = linkedIn.offsetLeft + linkedIn.offsetWidth / 2  - divSprite.offsetWidth / 2
+          ballY = linkedIn.offsetTop - divSprite.offsetHeight
+          divSprite.style.left = ballX + 'px'
+          divSprite.style.top = ballY + 'px'
+        }
       }
       window.document.addEventListener('mousemove', movepaddle, true)
 
       //____________________________________ANIMATION_Ball_Sprite______________________________________
       var animSprite = function () {
-        //idL = requestAnimationFrame(animSprite)
         if (parseFloat(imgSoccer.style.left) > -72) {
           imgSoccer.style.left = parseFloat(imgSoccer.style.left) - 39 + 'px'
         } else if (parseFloat(imgSoccer.style.top) > -50) {
@@ -416,6 +424,7 @@ class JeuCv extends Component {
           ballY = linkedIn.offsetTop
           linkedIn.className = 'linkedin'
           $('#linkedIn').hide()
+          $('#imgSoccer').hide()
           $('#competen').toggleClass('competences')
           //$('#informatique').fadeOut()
           informatique.style.verticalAlign = 'middle'
@@ -492,6 +501,9 @@ class JeuCv extends Component {
       let fuse = 1
       var stopEvent = false
       idL = setInterval(animSprite, 60)
+      clearInterval(idL)
+      
+      clickMove = true
 
       //_____________________MAIN()_____Déplacement_balle_dans_Environnement__________________________
       var bouclePrincpale = function () {
@@ -522,8 +534,6 @@ class JeuCv extends Component {
 
             if (stopEvent) {
               window.document.removeEventListener('click', animMoveBall, true)
-              //cancelAnimationFrame(idAni)
-              //cancelAnimationFrame(idL)
               window.document.removeEventListener('mousemove', movepaddle, true)
               window.document.removeEventListener('click', eTouchStart, true)
               window.document.removeEventListener('click', eTouchMove, true)
