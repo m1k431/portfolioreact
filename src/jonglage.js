@@ -15,7 +15,7 @@ class Jonglage extends Component {
       <section id="VideoJonglage" className="me">
         <h1 className="english">{welcome}</h1>
         <h1 className="french">{bienvenue}</h1>
-        <video id="jugglejungle" autoPlay='true' loop='true' poster={VideoPoster} playsInline controls>
+        <video id="jugglejungle" autoPlay loop poster={VideoPoster} playsInline controls>
           <source src={VideoJ} type="video/webm"/>
         </video>
         <h2 className="english">{moiUS}</h2>

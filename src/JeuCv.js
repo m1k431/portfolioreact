@@ -260,6 +260,7 @@ class JeuCv extends Component {
       var animMoveBall = function () {
         clickMove = false
         idL = setInterval(animSprite, 60)
+        window.document.removeEventListener('click', animMoveBall, true)
         bouclePrincpale()
       }
       /*
@@ -286,13 +287,13 @@ class JeuCv extends Component {
           if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 8) {
             angle = 4
           }
-          else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 - linkedIn.offsetWidth / 8) {
+          else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4) {
             angle = 3
           }
           else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4 + linkedIn.offsetWidth / 8) {
             angle = 2
           }
-          else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 4) {
+          else if (ballX + divSprite.offsetWidth / 2 < linkedIn.offsetLeft + linkedIn.offsetWidth / 2) {
             angle = 1
           }
         }
