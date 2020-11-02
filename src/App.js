@@ -32,9 +32,9 @@ function App() {
             }
           }
         }} />
-        {/*<VideoJonglage></VideoJonglage>*/}
+        <VideoJonglage></VideoJonglage>
         <JeuCv></JeuCv>
-        {/*<Soleil></Soleil>*/}
+        <Soleil></Soleil>
     </div>
   );
 }
