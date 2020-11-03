@@ -17,7 +17,7 @@ function App() {
           },
           "particles": {
             "number": {
-              "value": 40
+              "value": 80
             },
             "size": {
               "value": 1
