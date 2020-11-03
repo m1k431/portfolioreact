@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './css/jonglage.css'
-import VideoJ from './img/theOneFinal.webm'
-import VideoPoster from './img/kuansiFalls.webp'
+import VideoJ from './img/theOneFinal.mp4'
+import VideoPoster from './img/kuansiFalls.jpg'
 
 class Jonglage extends Component {
   render() {
@@ -16,7 +16,7 @@ class Jonglage extends Component {
         <h1 className="english">{welcome}</h1>
         <h1 className="french">{bienvenue}</h1>
         <video id="jugglejungle" autoPlay loop poster={VideoPoster} playsInline controls>
-          <source src={VideoJ} type="video/webm"/>
+          <source src={VideoJ} type="video/mp4"/>
         </video>
         <h2 className="english">{moiUS}</h2>
         <h2 className="english">{metierUS}</h2>

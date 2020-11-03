@@ -50,8 +50,8 @@ class soleil extends Component {
     mon360.muted = true
     mon360.loop = true
     var src360 = document.createElement('source')
-    src360.src = '/img/360backnoreverse.webm'
-    src360.type = 'video/webm'
+    src360.src = '/img/360backnoreverse.mp4'
+    src360.type = 'video/mp4'
     //ATARIIIIIIIIII
     var divAtari = document.createElement('div')
     divAtari.style.position = 'absolute'
