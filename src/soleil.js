@@ -59,7 +59,7 @@ class soleil extends Component {
     divAtari.style.right = '5px'
     var m0nimg = document.createElement('img')
     m0nimg.style.position = 'relative'
-    m0nimg.src = '/img/Atari.webp'
+    m0nimg.src = '/img/Atari.png'
     m0nimg.id = 'atari'
     //Cielllllllllllll
     var m0nCiel = document.createElement('canvas')
